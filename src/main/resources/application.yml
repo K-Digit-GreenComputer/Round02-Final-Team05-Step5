@@ -1,0 +1,62 @@
+
+server:
+  port: 8000
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+ 
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp 
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  sql:
+    init:
+      schema-locations:
+      - classpath:db/table.sql
+      data-locations:
+      - classpath:db/data.sql
+  h2:
+    console:
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+
+mybatis:
+  mapper-locations:
+  - classpath:mapper/**.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# mysql 연동
+# server:
+#   port: 8000
+#   servlet:
+#     encoding:
+#       charset: utf-8
+#       force: true
+# spring:
+#   mvc:
+#     view:
+#       prefix: /WEB-INF/view/
+#       suffix: .jsp
+#   datasource:
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     url: jdbc:mysql://localhost:3306/sys?serverTimezone=UTC&characterEncoding=UTF-8
+#     username: root
+#     password: green1234
+   
+#   output:
+#     ansi:
+#       enabled: always
+
+# mybatis:
+#   mapper-locations:
+#   - classpath:mapper/**.xml

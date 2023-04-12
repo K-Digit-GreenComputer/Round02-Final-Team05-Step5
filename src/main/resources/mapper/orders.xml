@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop.mtcoding.finalproject.model.orders.OrdersRepository">
+
+	<select id="findAll" resultType="shop.mtcoding.finalproject.dto.orders.BuyListDto">
+		SELECT * FROM ORDERS_TB WHERE user_id = #{userId} order by id desc
+	</select>
+
+	<select id="findById" resultType="shop.mtcoding.finalproject.model.orders.Orders">
+		SELECT * FROM orders_tb WHERE id = #{ordersId}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO orders_tb(orders_name, orders_price, orders_qty, product_id, user_id, created_at)
+		VALUES(#{ordersName}, #{ordersPrice}, #{ordersQty},#{productId}, #{userId}, NOW())
+	</insert>
+
+	<update id="update">
+		UPDATE orders_tb SET orders_name = #{ordersName},
+		orders_price = #{ordersPrice},
+		orders_qty = #{ordersQty},
+		product_id = #{productId},
+		user_id = #{userId}
+		WHERE orders_id = #{ordersId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM orders_tb WHERE orders_id = #{ordersId}
+	</delete>
+
+</mapper>
