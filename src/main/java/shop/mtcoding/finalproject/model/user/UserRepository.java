@@ -18,7 +18,9 @@ public interface UserRepository {
 
     public int insert(JoinReqDto joinReqDto);
 
-    public int delete(@Param("id") int id);
+    public int delete(int id);
 
-    public int update(@Param("username") String username, @Param("password") String password, @Param("email") String email);
+    public int update(@Param("password") String password, @Param("email") String email, @Param("userId") int userId);
+
+    public User findByUsername(String userename);
 }

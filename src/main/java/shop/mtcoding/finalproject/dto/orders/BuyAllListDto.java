@@ -1,16 +1,18 @@
 package shop.mtcoding.finalproject.dto.orders;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class BuyListDto {
-    private Integer ordersId;
+public class BuyAllListDto {
+
+    private String userName;
     private String ordersName;
     private String ordersPrice;
     private Integer ordersQty;
-    private Integer productId;
+    private Timestamp createdAt;
 }

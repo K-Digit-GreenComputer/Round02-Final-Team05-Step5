@@ -35,20 +35,46 @@
 <script>
         let submitCheck = false;
         function valid() {
-            if (submitCheck) {
+            if (submitCheck==true) {
                 return true;
             } else {
                 alert("제품이름을 중복체크를 해주세요");
                 return false;
             }
         }
+		// 상품등록
+		function insertProduct() {
+			if(blankProductName() == true){
+				alert("상품명을 입력해주세요");
+				return
+			}
+		}
+
+
+		// 상품명 중복 확인
+		function checkProductName() {
+			if(blankProductName() == true){
+				alert("상품명을 입력해주세요");
+				return
+			}
+		}
+
+
+		function blankProductName() {	// 상품명 공백 || 띄어쓰기 막아줌
+			let productName = $("#name").val();
+			let blank = /\s/g;
+			if(!productName || blank.test(productName)){
+				return true;
+			}
+		}
+
         function sameCheck() {
             let productname = $("#name").val();
             $.ajax({
                 type: "get",
                 url: "/product/productnameSameCheck?productname=" + productname
             }).done((res) => {
-                //console.log(res);
+                console.log(res);
                 if (res.data === true) {
                     alert(res.msg);
                     submitCheck = true;
@@ -61,5 +87,4 @@
         }
 </script>
 
-<script src="/js/insert.js"></script>
 <%@ include file="../layout/footer.jsp"%>

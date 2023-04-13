@@ -11,7 +11,9 @@
 				<th>상품명</th>
 				<th>상품가격</th>
 				<th>상품수량</th>
+				<c:if test="${principal.role == 'user'}">
 				<th>구매수량</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,7 +21,9 @@
 				<td>${product.name}</td>
 				<td>${product.price}</td>
 				<td>${product.qty}</td>
+				<c:if test="${principal.role == 'user'}">
 				<td width="150"> <input name="ordersQty" type="number"  min="1" class="form-control"></td>
+				</c:if>
 			</tr>
 		</tbody>
 	</table>
@@ -27,12 +31,18 @@
 		<input type="hidden" name="ordersName" type="text" class="form-control" value="${product.name}">
 		<input type="hidden" name="ordersPrice" type="text" class="form-control" value="${product.price}"">
 		<input type="hidden" name="productId" type="text" class="form-control" value="${product.id}">
-		<!-- <a href="/product/${product.id}/updateForm" class="btn btn-warning">상품수정</a>
-		<form action="/product/${product.id}/delete" method="post">
-			<button id="btnDelete" type="submit"  class="btn btn-danger">상품삭제</button> -->
+		<c:if test="${principal.role == 'user'}">
 			<button type="submit" class="btn btn-primary">구매하기</button>
-		</div>
+		</c:if>
+		
 	</form>
+	<c:if test="${principal.role == 'admin'}">
+		<a href="/product/${product.id}/updateForm" class="btn btn-warning">상품수정</a>
+		<form action="/product/${product.id}/delete" method="post">
+			<button id="btnDelete" type="submit"  class="btn btn-danger">상품삭제</button>
+			</form>
+			</c:if>
+			</div>
 </div>
 
 <%@ include file="../layout/footer.jsp"%>

@@ -31,4 +31,8 @@
    <update id="productQtyUpdate">
       update product_tb set qty = qty - #{ordersQty} where id = #{productId}
    </update>
+
+   <update id = "canclePurchase">
+	UPDATE product_tb SET qty = qty + #{ordersQty} where id = #{productId}
+   </update>
 </mapper>

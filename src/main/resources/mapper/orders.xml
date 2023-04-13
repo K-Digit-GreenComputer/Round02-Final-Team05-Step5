@@ -8,13 +8,21 @@
 		SELECT * FROM ORDERS_TB WHERE user_id = #{userId} order by id desc
 	</select>
 
+	<select id="findAllList" resultType="shop.mtcoding.finalproject.dto.orders.BuyAllListDto">
+		SELECT *
+    	FROM user_tb
+		JOIN orders_tb ON user_tb.id = orders_tb.user_id
+		where orders_tb.orders_qty > 0
+		order by id desc
+	</select>
+
 	<select id="findById" resultType="shop.mtcoding.finalproject.model.orders.Orders">
 		SELECT * FROM orders_tb WHERE id = #{ordersId}
 	</select>
 
 	<insert id="insert">
 		INSERT INTO orders_tb(orders_name, orders_price, orders_qty, product_id, user_id, created_at)
-		VALUES(#{ordersName}, #{ordersPrice}, #{ordersQty},#{productId}, #{userId}, NOW())
+		VALUES(#{ordersName}, #{ordersPrice}, #{ordersQty}, #{productId}, #{userId}, NOW())
 	</insert>
 
 	<update id="update">
@@ -27,7 +35,7 @@
 	</update>
 
 	<delete id="delete">
-		DELETE FROM orders_tb WHERE orders_id = #{ordersId}
+		DELETE FROM orders_tb WHERE id = #{ordersId}
 	</delete>
 
 </mapper>

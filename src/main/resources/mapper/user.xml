@@ -8,6 +8,10 @@
       select * from user_tb where username=#{username} and password=#{password}
    </select>
 
+   <select id="findByUsername" resultType="shop.mtcoding.finalproject.model.user.User">
+      select * from user_tb where username = #{username}
+   </select>
+
    <select id="findAll" resultType="shop.mtcoding.finalproject.model.user.User">
       select * from user_tb order by id desc
    </select>
@@ -25,6 +29,6 @@
    </delete>
 
    <update id="update">
-      update user_tb set username = #{username}, password = #{password}, email = #{email} where id = #{id}
+      update user_tb set password = #{password}, email = #{email} where id = #{userId}
    </update>
 </mapper>

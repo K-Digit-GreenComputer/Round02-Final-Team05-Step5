@@ -7,7 +7,7 @@ public class ProductReqDto {
 
     @Setter
     @Getter
-    public static class SameReqDto {
+    public static class productSameReqDto {
         private String productname;
     }
 }

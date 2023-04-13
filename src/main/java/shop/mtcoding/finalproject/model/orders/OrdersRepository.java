@@ -5,11 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import shop.mtcoding.finalproject.dto.orders.BuyAllListDto;
 import shop.mtcoding.finalproject.dto.orders.BuyListDto;
 
 @Mapper
 public interface OrdersRepository {
-    public List<BuyListDto> findAll(int userId); 
+    public List<BuyListDto> findAll(int userId);
+    
+    public List<BuyAllListDto> findAllList(); 
 
     public Orders findById(int ordersId);
 

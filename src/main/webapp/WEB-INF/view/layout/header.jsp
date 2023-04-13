@@ -31,13 +31,22 @@
 				<c:choose>
 				<c:when test="${empty principal}">
 					<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="/joinForm">구매자회원가입</a></li>
-					<%-- <li class="nav-item"><a class="nav-link" href="/loginForm">관리자로그인</a></li> --%>
+					<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+					<!-- <%-- <li class="nav-item"><a class="nav-link" href="/loginForm">관리자로그인</a></li> --%> -->
 				</c:when>
 				<c:otherwise>
-					<%-- <li class="nav-item"><a class="nav-link" href="/product/addForm">상품등록</a></li> --%>
-					<li class="nav-item"><a class="nav-link" href="/orders/ordersList">구매목록</a></li>
+				<c:if test="${principal.role == 'admin'}">
+					<li class="nav-item"><a class="nav-link" href="/product/addForm">상품등록</a></li> 
+					<li class="nav-item"><a class="nav-link" href="/userListForm">유저목록</a></li> 
+					<li class="nav-item"><a class="nav-link" href="/orders/ordersAllList">구매목록</a></li> 
+					<li class="nav-item"><a class="nav-link" href="/user/profile">회원정보</a></li>
 					<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+				</c:if>	
+				<c:if test="${principal.role == 'user'}">
+					<li class="nav-item"><a class="nav-link" href="/orders/ordersList">구매목록</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/profile">회원정보</a></li>
+					<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+				</c:if>
 				</c:otherwise>
 				</c:choose>
 				</ul>

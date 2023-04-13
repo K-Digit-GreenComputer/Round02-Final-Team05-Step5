@@ -15,7 +15,7 @@ public interface ProductRepository {
 
     public int insert(@Param("name") String name, @Param("price") int price, @Param("qty") int qty);
 
-    public int delete(@Param("id") int id);
+    public int delete(int id);
 
     public int update(@Param("id") int id, @Param("name") String name, @Param("price") int price,
             @Param("qty") int qty);
@@ -24,4 +24,6 @@ public interface ProductRepository {
     public Product findByName(String productname);
 
     public int productQtyUpdate(BuyDto buyDto);
+    
+    public int canclePurchase(BuyDto buyDto);
 }

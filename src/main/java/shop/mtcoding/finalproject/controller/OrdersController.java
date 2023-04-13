@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
+import shop.mtcoding.finalproject.dto.orders.BuyAllListDto;
 import shop.mtcoding.finalproject.dto.orders.BuyDto;
 import shop.mtcoding.finalproject.dto.orders.BuyListDto;
 import shop.mtcoding.finalproject.model.orders.OrdersRepository;
@@ -34,8 +35,19 @@ public class OrdersController {
         return "orders/ordersList"; 
     }
 
+    @GetMapping("/orders/ordersAllList" )
+    public String orderAlllist(Model model) {
+        User principal = (User) session.getAttribute("principal");
+		List<BuyAllListDto> orderAlllist = ordersRepository.findAllList();
+		if (principal.getRole().equals("admin")) {
+		model.addAttribute("orderslist",orderAlllist);
+        return "orders/userOrdersList"; 
+		}
+		return "redirect:/";
+    }
+
     @PostMapping("/orders/{productId}")
-	public String ordersList(@PathVariable Integer productId, BuyDto buyDto) {
+	public String buyOrders(@PathVariable Integer productId, BuyDto buyDto) {
 		User principal = (User) session.getAttribute("principal");
 		
 		if(principal == null) {
@@ -50,8 +62,21 @@ public class OrdersController {
 
 		productRepository.productQtyUpdate(buyDto);
 		ordersRepository.insert(buyDto.toModel(principal.getId()));
-		System.out.println("디버깅");
 		// 상품 구매 -> 구매목록 페이지로
 		return "redirect:/orders/ordersList";
 	}
+
+    @PostMapping("/orders/{ordersId}/cancle")
+	public String cancleOrders(@PathVariable Integer ordersId, BuyDto buyDto) {
+		
+		User principal = (User)session.getAttribute("principal");
+		if (principal==null) {
+			return "redirect:/loginForm";
+		}
+
+		productRepository.canclePurchase(buyDto);
+		ordersRepository.delete(buyDto.getOrdersId());
+		return "redirect:/";
+	} 
 }
+
