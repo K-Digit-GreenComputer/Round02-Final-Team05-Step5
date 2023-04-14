@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import shop.mtcoding.finalproject.dto.ResponseDto;
 import shop.mtcoding.finalproject.dto.product.ProductReqDto.ProductAddReqDto;
 import shop.mtcoding.finalproject.dto.product.ProductReqDto.productSameReqDto;
+import shop.mtcoding.finalproject.handler.ex.CustomApiException;
 import shop.mtcoding.finalproject.model.product.Product;
 import shop.mtcoding.finalproject.model.product.ProductRepository;
 import shop.mtcoding.finalproject.model.user.User;
@@ -49,7 +50,19 @@ public class ProductController {
 
     @PostMapping("/product/add")
     public @ResponseBody ResponseDto<?> add(@RequestBody ProductAddReqDto productAddReqDto) {
-        
+        if (productAddReqDto.getProductname() == null || productAddReqDto.getProductname().isEmpty()) {
+            throw new CustomApiException("productname을 작성해주세요");
+            // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);
+        }
+        if (productAddReqDto.getQty() == null) {
+            throw new CustomApiException("재고를 입력해주세요");
+            // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);
+        }
+        if (productAddReqDto.getPrice() == null ) {
+            throw new CustomApiException("가격을 입력해주세요");
+            // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);
+        }
+       
         int result = productRepository.insert(productAddReqDto);
         if (result == 1) {
             return new ResponseDto<>(1, "제품등록 성공", null);

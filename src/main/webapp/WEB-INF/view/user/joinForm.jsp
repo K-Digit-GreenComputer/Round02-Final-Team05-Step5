@@ -21,15 +21,15 @@
         let submitCheck = false;
         let userNameCheckEvent = "";
 
-        // function capitalLetter() {	// 영어만 입력 가능
-        // 	let username = $("#userName").val();
-        // 	let capiRule = /[a-zA-Z]/;
-        // 	if (capiRule.test(username)) {
-        // 		return true;
-        // 	} else {
-        // 		return false;
-        // 	}
-        // }       
+        function capitalLetter() {	// 영어랑 숫자만 입력 가능
+        	let username = $("#username").val();
+        	let capiRule = /^[a-zA-Z0-9]+$/;
+        	if (capiRule.test(username)) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+        }       
 
         function emailCheck(){
             var email = $("#email").val();
@@ -101,10 +101,10 @@ function join(){
         alert("이메일 형식을 확인해주세요");
         return;
     }
-    // if (capitalLetter() == true) {
-    //     alert("아이디는 영어로 입력해주세요");
-    //     return;
-    // }
+    if (capitalLetter() == false) {
+        alert("아이디는 영어로 입력해주세요");
+        return;
+    }
 	
 	let data ={
 		username : $("#username").val(),

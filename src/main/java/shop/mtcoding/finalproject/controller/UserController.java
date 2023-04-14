@@ -106,6 +106,9 @@ public class UserController {
 
     @PostMapping("/join")
     public @ResponseBody ResponseDto<?> join(@RequestBody JoinReqDto joinReqDto) {
+        System.out.println(joinReqDto.getEmail());
+        System.out.println(joinReqDto.getUsername());
+        System.out.println(joinReqDto.getPassword());
         if (joinReqDto.getUsername() == null || joinReqDto.getUsername().isEmpty()) {
             throw new CustomApiException("username을 작성해주세요");
             // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);
