@@ -6,19 +6,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
-
 import lombok.RequiredArgsConstructor;
 import shop.mtcoding.finalproject.dto.ResponseDto;
 import shop.mtcoding.finalproject.dto.user.RequestDto.JoinReqDto;
 import shop.mtcoding.finalproject.dto.user.RequestDto.LoginReqDto;
 import shop.mtcoding.finalproject.dto.user.RequestDto.SameUserReqDto;
+import shop.mtcoding.finalproject.dto.user.RequestDto.UserUpdateReqDto;
 import shop.mtcoding.finalproject.handler.ex.CustomApiException;
 import shop.mtcoding.finalproject.handler.ex.CustomException;
 import shop.mtcoding.finalproject.model.user.User;
@@ -33,7 +33,6 @@ public class UserController {
 
     @GetMapping("/user/usernameSameCheck")
     public @ResponseBody ResponseDto<?> check(String username, SameUserReqDto sameUserReqDto) {
-        System.out.println("디버깅11 : "+username);
         if (username == null || username.isEmpty()) {
             return new ResponseDto<>(-1, "유저네임이 입력되지 않았습니다.", null);
         }
@@ -46,18 +45,25 @@ public class UserController {
     }
 
    
-    @PostMapping("/user/{userProfileid}/delete")
-    public String profileDelete(@PathVariable int userProfileid) {
-        userRepository.delete(userProfileid);
+    @DeleteMapping("/user/delete")
+    public @ResponseBody ResponseDto<?> profileDelete() {
+        User principal= (User)session.getAttribute("principal");
+        userRepository.delete(principal.getId());
         session.invalidate();
-        return "redirect:/";
+        return new ResponseDto<>(1, "회원탈퇴성공", null);
     }
    
-    @PostMapping("/user/{userid}/update")
-    public String profileUpdate(@PathVariable int userid, String password, String email) {
-        userRepository.update(password, email, userid);
+    @PostMapping("/user/update")
+    public @ResponseBody ResponseDto<?> profileUpdate(@RequestBody UserUpdateReqDto userUpdateReqDto) {
+        System.out.println("디버깅");
+        System.out.println("디버깅 "+userUpdateReqDto.getPassword());
+        System.out.println("디버깅 "+userUpdateReqDto.getEmail());
+        User principal= (User)session.getAttribute("principal");
+
+
+        userRepository.update(userUpdateReqDto.toModel(principal.getId()));
         session.invalidate();
-        return "redirect:/";
+         return new ResponseDto<>(1, "회원수정완료", null);
     }
 
     @GetMapping("/user/profile")
@@ -69,7 +75,6 @@ public class UserController {
         
         return "user/userUpdateForm";
     }
-
 
     @GetMapping("/loginForm")
     public String loginForm() {

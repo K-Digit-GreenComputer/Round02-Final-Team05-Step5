@@ -3,7 +3,6 @@ package shop.mtcoding.finalproject.model.user;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import shop.mtcoding.finalproject.dto.user.RequestDto.JoinReqDto;
 import shop.mtcoding.finalproject.dto.user.RequestDto.LoginReqDto;
@@ -20,7 +19,7 @@ public interface UserRepository {
 
     public int delete(int id);
 
-    public int update(@Param("password") String password, @Param("email") String email, @Param("userId") int userId);
+    public int update(User user);
 
     public User findByUsername(String userename);
 }

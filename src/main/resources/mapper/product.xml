@@ -13,7 +13,7 @@
    </select>
 
    <insert id="insert" >
-      insert into product_tb(name, price, qty, created_at) values(#{name}, #{price}, #{qty}, now())   
+      insert into product_tb(name, price, qty, created_at) values(#{productname}, #{price}, #{qty}, now())   
    </insert>
 
    <delete id="delete" >

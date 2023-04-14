@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import shop.mtcoding.finalproject.dto.orders.BuyDto;
+import shop.mtcoding.finalproject.dto.product.ProductReqDto.ProductAddReqDto;
 
 @Mapper 
 public interface ProductRepository {
@@ -13,7 +14,7 @@ public interface ProductRepository {
 
     public Product findById(int id);
 
-    public int insert(@Param("name") String name, @Param("price") int price, @Param("qty") int qty);
+    public int insert(ProductAddReqDto productAddReqDto);
 
     public int delete(int id);
 

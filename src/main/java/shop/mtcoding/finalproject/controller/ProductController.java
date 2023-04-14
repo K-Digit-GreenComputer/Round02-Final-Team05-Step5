@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import shop.mtcoding.finalproject.dto.ResponseDto;
+import shop.mtcoding.finalproject.dto.product.ProductReqDto.ProductAddReqDto;
 import shop.mtcoding.finalproject.dto.product.ProductReqDto.productSameReqDto;
 import shop.mtcoding.finalproject.model.product.Product;
 import shop.mtcoding.finalproject.model.product.ProductRepository;
@@ -46,12 +48,13 @@ public class ProductController {
     }
 
     @PostMapping("/product/add")
-    public String add(String name, Integer price, Integer qty) {
-        int result = productRepository.insert(name, price, qty);
+    public @ResponseBody ResponseDto<?> add(@RequestBody ProductAddReqDto productAddReqDto) {
+        
+        int result = productRepository.insert(productAddReqDto);
         if (result == 1) {
-            return "redirect:/product";
+            return new ResponseDto<>(1, "제품등록 성공", null);
         } else {
-            return "redirect:product/addForm";
+            return new ResponseDto<>(-1, "제품등록 실패", null);
         }
     }
 
