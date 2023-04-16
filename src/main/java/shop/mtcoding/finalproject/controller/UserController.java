@@ -55,11 +55,7 @@ public class UserController {
    
     @PostMapping("/user/update")
     public @ResponseBody ResponseDto<?> profileUpdate(@RequestBody UserUpdateReqDto userUpdateReqDto) {
-        System.out.println("디버깅");
-        System.out.println("디버깅 "+userUpdateReqDto.getPassword());
-        System.out.println("디버깅 "+userUpdateReqDto.getEmail());
         User principal= (User)session.getAttribute("principal");
-
 
         userRepository.update(userUpdateReqDto.toModel(principal.getId()));
         session.invalidate();
@@ -82,7 +78,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(LoginReqDto loginReqDto) {
+    public  @ResponseBody ResponseDto<?> login(LoginReqDto loginReqDto) {
         if (loginReqDto.getUsername() == null || loginReqDto.getUsername().isEmpty()) {
             throw new CustomException("username을 작성해주세요");
         }
@@ -94,9 +90,9 @@ public class UserController {
         
         session.setAttribute("principal", principal);
         if (principal!=null) {
-            return "redirect:/";
+            return new ResponseDto<>(-1, "로그인 실패", null);
         } else {
-            return "redirect:/loginForm";
+            return new ResponseDto<>(1, "로그인 성공", null);
         }
     }
     @GetMapping("/joinForm")
