@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,9 +77,8 @@ public class UserController {
     public String loginForm() {
         return "user/loginForm";
     }
-
     @PostMapping("/login")
-    public  @ResponseBody ResponseDto<?> login(LoginReqDto loginReqDto) {
+    public @ResponseBody ResponseDto<?> login(@RequestBody LoginReqDto loginReqDto) {
         if (loginReqDto.getUsername() == null || loginReqDto.getUsername().isEmpty()) {
             throw new CustomException("username을 작성해주세요");
         }
@@ -86,15 +86,17 @@ public class UserController {
             throw new CustomException("password를 작성해주세요");
         }
         User principal = userRepository.login(loginReqDto);
-        // System.out.println(principal.getRole());
         
         session.setAttribute("principal", principal);
-        if (principal!=null) {
-            return new ResponseDto<>(-1, "로그인 실패", null);
+
+        if (principal != null) {
+            return new ResponseDto<>(1, "로그인 성공", null
+                );
         } else {
-            return new ResponseDto<>(1, "로그인 성공", null);
+            return new ResponseDto<>(-1, "로그인 실패", null);
         }
     }
+
     @GetMapping("/joinForm")
     public String joinForm() {
         return "user/joinForm";
@@ -102,9 +104,6 @@ public class UserController {
 
     @PostMapping("/join")
     public @ResponseBody ResponseDto<?> join(@RequestBody JoinReqDto joinReqDto) {
-        System.out.println(joinReqDto.getEmail());
-        System.out.println(joinReqDto.getUsername());
-        System.out.println(joinReqDto.getPassword());
         if (joinReqDto.getUsername() == null || joinReqDto.getUsername().isEmpty()) {
             throw new CustomApiException("username을 작성해주세요");
             // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);

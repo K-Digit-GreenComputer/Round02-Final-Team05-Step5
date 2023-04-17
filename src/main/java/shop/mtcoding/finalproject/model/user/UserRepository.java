@@ -22,4 +22,5 @@ public interface UserRepository {
     public int update(User user);
 
     public User findByUsername(String userename);
+
 }
