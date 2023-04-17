@@ -8,9 +8,14 @@
 			<button id="SameCheck" type="button"
 				class="btn btn-warning" onclick="sameCheck()">아이디 중복확인</button>
 		</div>
+		
 		<div class="mb-3">
-			<input id="password" name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요" maxlength="20">
-		</div>
+    <input id="password" name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요" maxlength="20">
+</div>
+<div class="mb-3">
+    <input id="passwordCheck" name="passwordCheck" type="password" class="form-control" placeholder="비밀번호를 확인해주세요" maxlength="20">
+    <div id="passwordMatchError" class="invalid-feedback"></div>
+</div>
 		<div class="mb-3">
 			<input id="email" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" maxlength="20">
 		</div>
@@ -20,6 +25,25 @@
 <script>
         let submitCheck = false;
         let userNameCheckEvent = "";
+
+        $(document).ready(function() {
+    $("#passwordCheck").keyup(checkPasswordMatch);
+    $("#password").keyup(checkPasswordMatch);
+});
+
+function checkPasswordMatch() {
+    var password = $("#password").val();
+    var confirmPassword = $("#passwordCheck").val();
+
+    if (password != confirmPassword) {
+        $("#passwordCheck").addClass("is-invalid");
+        $("#passwordMatchError").html("비밀번호가 일치하지 않습니다.").show();
+    }
+    else {
+        $("#passwordCheck").removeClass("is-invalid");
+        $("#passwordMatchError").html("").hide();
+    }
+}
 
         function capitalLetter() {	// 영어랑 숫자만 입력 가능
         	let username = $("#username").val();
@@ -109,6 +133,7 @@ function join(){
 	let data ={
 		username : $("#username").val(),
 		password : $("#password").val(),
+		passwordCheck : $("#passwordCheck").val(),
 		email : $("#email").val()
 	};
 	

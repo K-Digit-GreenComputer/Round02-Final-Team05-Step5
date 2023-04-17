@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,6 +48,7 @@ public class UserController {
     @DeleteMapping("/user/delete")
     public @ResponseBody ResponseDto<?> profileDelete() {
         User principal= (User)session.getAttribute("principal");
+        
         userRepository.delete(principal.getId());
         session.invalidate();
         return new ResponseDto<>(1, "회원탈퇴성공", null);
@@ -104,6 +104,8 @@ public class UserController {
 
     @PostMapping("/join")
     public @ResponseBody ResponseDto<?> join(@RequestBody JoinReqDto joinReqDto) {
+        System.out.println(joinReqDto.getPassword());
+        System.out.println(joinReqDto.getPasswordCheck());
         if (joinReqDto.getUsername() == null || joinReqDto.getUsername().isEmpty()) {
             throw new CustomApiException("username을 작성해주세요");
             // return new ResponseDto<>(-1, "username이 입력되지 않았습니다.", null);
@@ -112,9 +114,16 @@ public class UserController {
             throw new CustomApiException("password를 작성해주세요");
             // return new ResponseDto<>(-1, "password가 입력되지 않았습니다.", null);
         }
+        if (joinReqDto.getPasswordCheck() == null || joinReqDto.getPasswordCheck().isEmpty()) {
+            throw new CustomApiException("password 확인을 해주세요");
+            // return new ResponseDto<>(-1, "password가 입력되지 않았습니다.", null);
+        }
         if (joinReqDto.getEmail() == null || joinReqDto.getEmail().isEmpty()) {
             throw new CustomApiException("email을 작성해주세요");
             // return new ResponseDto<>(-1, "email이 입력되지 않았습니다.", null);
+        }
+        if (joinReqDto.getPassword() != joinReqDto.getPasswordCheck()) {
+            throw new CustomApiException("password가 일치하지 않습니다");
         }
         if (joinReqDto.getUsername().isBlank()) {
             return new ResponseDto<>(-1, "회원가입 실패", null);
@@ -123,6 +132,9 @@ public class UserController {
             return new ResponseDto<>(-1, "회원가입 실패", null);
         }
         if (joinReqDto.getPassword().isBlank()) {
+            return new ResponseDto<>(-1, "회원가입 실패", null);
+        }
+        if (joinReqDto.getPasswordCheck().isBlank()) {
             return new ResponseDto<>(-1, "회원가입 실패", null);
         }
         userRepository.insert(joinReqDto);
