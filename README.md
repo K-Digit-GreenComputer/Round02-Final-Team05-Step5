@@ -22,18 +22,7 @@
   - 탈퇴하기
   
   <br/>
-# 사용기술 🧪
-![Springboot](https://img.shields.io/badge/-Springboot-6DB33F)
-![Java](https://img.shields.io/badge/-Java-F09820)
-![CSS](https://img.shields.io/badge/-CSS-1572B6)
-![HTML](https://img.shields.io/badge/-HTML-E34F26)
-![JS](https://img.shields.io/badge/-JavaScript-F7DF1E)
-![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3)
-![MyBatis](https://img.shields.io/badge/-MyBatis-B10000)
-![H2](https://img.shields.io/badge/-H2Console-41BDF5)  
-![image](https://github.com/controller22/Springboot-Mybatis-Final-Product-buyer/assets/122349890/461c7323-1cba-460c-be41-3f6259cd69cc)
 
-  <br/>
 # 기능구현 🔧
 ### 공통👨‍👩‍👧‍👦
 - user 테이블에 role(권한) 추가하여 권한에 따른 화면 분리
@@ -69,6 +58,23 @@
 - 주문 취소 시 재고 업데이트
 
    <br/>
+   
+# 사용기술 🧪
+![Springboot](https://img.shields.io/badge/-Springboot-6DB33F)
+![Java](https://img.shields.io/badge/-Java-F09820)
+![CSS](https://img.shields.io/badge/-CSS-1572B6)
+![HTML](https://img.shields.io/badge/-HTML-E34F26)
+![JS](https://img.shields.io/badge/-JavaScript-F7DF1E)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3)
+![MyBatis](https://img.shields.io/badge/-MyBatis-B10000)
+![H2](https://img.shields.io/badge/-H2Console-41BDF5)  
+![image](https://github.com/controller22/Springboot-Mybatis-Final-Product-buyer/assets/122349890/461c7323-1cba-460c-be41-3f6259cd69cc)
+
+  <br/>
+
+# 테이블 설계 📁
+![image](https://github.com/controller22/Springboot-Mybatis-Final-Product-buyer/assets/122349890/a7a52157-8af2-4e17-9698-3aef456951c1)
+
 
 # 테이블 생성 📁
 ```sql
