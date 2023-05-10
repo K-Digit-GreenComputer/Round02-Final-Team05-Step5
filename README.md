@@ -31,6 +31,8 @@
 ![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3)
 ![MyBatis](https://img.shields.io/badge/-MyBatis-B10000)
 ![H2](https://img.shields.io/badge/-H2Console-41BDF5)  
+![image](https://github.com/controller22/Springboot-Mybatis-Final-Product-buyer/assets/122349890/461c7323-1cba-460c-be41-3f6259cd69cc)
+
   <br/>
 # 기능구현 🔧
 ### 공통👨‍👩‍👧‍👦
