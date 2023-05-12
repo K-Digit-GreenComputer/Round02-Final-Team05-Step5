@@ -1,3 +1,10 @@
+# 발표자료
+[5조 파이널 프로젝트.pptx](https://github.com/controller22/Springboot-Mybatis-Final-Tstory/files/11448315/5.pptx)
+<br/>
+# 시연영상
+https://youtu.be/aEpCiDY8tpI
+<br/>
+<br/>
 # 쇼핑몰 프로젝트 5단계 📦
 ### 관리자(판매자)👷‍♀️👷‍♂️
 - 상품 등록, 수정, 삭제하기
